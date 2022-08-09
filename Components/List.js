@@ -16,8 +16,7 @@ const items = [
 
 export default function List({userContext}) {
   const [issues, setIssues] = useState([]);
-  const {loggedIn, setLoggedIn} = useContext(userContext);
-  const { runContractFunction } = useWeb3Contract()
+  const {loggedIn, setLoggedIn, userId, setUserId, email} = useContext(userContext);
 
   const { enableWeb3, isWeb3Enabled, account } = useMoralis();
   const { runContractFunction: getAllIssues } = useWeb3Contract({
@@ -30,6 +29,16 @@ export default function List({userContext}) {
     },
   })
 
+  const { runContractFunction: getUserId } = useWeb3Contract({
+    chain: 4,
+    abi: abi,
+    contractAddress: contractAddress, // specify the networkId
+    functionName: "getVoterId",
+    params: {
+      _email: email,
+    },
+  })
+
   useEffect(() => async () => {
     if (localStorage.getItem('email')) {
       enableWeb3()
@@ -38,27 +47,24 @@ export default function List({userContext}) {
   }, [])
 
 
-
   useEffect(() => async () => {
     setInterval(async ()=>{ 
-    const data = await getAllIssues();
-    setIssues(data);
+      const data = await getAllIssues();
+      setIssues(data);
+      if (localStorage.getItem('email')) {
+        setUserId(await getUserId())
+      }
     }, 2000)
-  }, [loggedIn, isWeb3Enabled])
+  }, [isWeb3Enabled])
 
   return (
     <ul role="list" className="divide-y divide-gray-200">
-      <button
-        onClick={async () =>{ 
-          const data = await getAllIssues();
-          console.log(data)
-        }}
-      >
-        test
-      </button>
       {issues?.map((issue) => (
         <li key={issue.id} className="py-4 text-xl">
-          {`${issue.id}: ${issue.s_currentIssue}`}<Stats issue={issue} /><div className="h-4"></div><Vote id={issue.id}/>
+          {`${issue.id}: ${issue.s_currentIssue}`}
+          <Stats issue={issue} userId={userId} />
+          <div className="h-4"></div>
+          <Vote id={issue.id} issue={issue} userId={userId}/>
         </li>
       ))}
     </ul>

@@ -1,11 +1,44 @@
 import { useMoralis, useWeb3Contract } from 'react-moralis';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { contractAddress, abi } from '../constants'
+
 
 /* This example requires Tailwind CSS v2.0+ */
   export default function PageHeader({userContext}) {
 
     const { enableWeb3, isWeb3Enabled, account } = useMoralis();
     const {loggedIn, setLoggedIn} = useContext(userContext);
+
+    const [email, setEmail] = useState('');
+  
+
+    const { runContractFunction: createUser } = useWeb3Contract({
+      chain: 4,
+      abi: abi,
+      contractAddress: contractAddress, 
+      functionName: "addUserByemail",
+      params: {
+        _email: email,
+      },
+    })
+
+    const { runContractFunction: getUserId } = useWeb3Contract({
+      chain: 4,
+      abi: abi,
+      contractAddress: contractAddress,
+      functionName: "getVoterId",
+      params: {
+        _email: email,
+      },
+    })
+
+    const login = async () => {
+      localStorage.setItem('userId', email)
+      await createUser()
+      const id = await getUserId()
+      localStorage.setItem('userId', id)
+      setLoggedIn(true)
+    }
 
     return (
       <header className="bg-transparent">

@@ -5,9 +5,8 @@ const stats = [
     { name: 'No', stat: '24.57%' },
   ]
   
-  export default function Stats({issue}) {
+  export default function Stats({issue, userId}) {
 
-    console.log(issue)
     return (
       <div>
         <h3 className="text-lg leading-6 font-medium text-gray-900"></h3>
