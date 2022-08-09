@@ -1,0 +1,66 @@
+import Yes from "./buttons/Yes"
+import Stats from "./Stats"
+import Vote from './Vote'
+import { useMoralis, useWeb3Contract } from 'react-moralis';
+import { contractAddress, abi } from '../constants'
+import React, { useEffect, useState, useContext } from "react";
+
+/* This example requires Tailwind CSS v2.0+ */
+const items = [
+  { id: 1, name: `Should there be doritos in the snack bar?` },
+  { id: 2, name: `I am in favor of moving the company 401k to John Doe Capital.` },
+  { id: 3, name: `There should be a one a year employee get together.` }
+  // More items...
+]
+
+
+export default function List({userContext}) {
+  const [issues, setIssues] = useState([]);
+  const {loggedIn, setLoggedIn} = useContext(userContext);
+  const { runContractFunction } = useWeb3Contract()
+
+  const { enableWeb3, isWeb3Enabled, account } = useMoralis();
+  const { runContractFunction: getAllIssues } = useWeb3Contract({
+    chain: 4,
+    abi: abi,
+    contractAddress: contractAddress, // specify the networkId
+    functionName: "getCurrentIssue",
+    params: {
+      _issueId: 1,
+    },
+  })
+
+  useEffect(() => async () => {
+    if (localStorage.getItem('email')) {
+      enableWeb3()
+    }
+    setLoggedIn(true)
+  }, [])
+
+
+
+  useEffect(() => async () => {
+    setInterval(async ()=>{ 
+    const data = await getAllIssues();
+    setIssues(data);
+    }, 2000)
+  }, [loggedIn, isWeb3Enabled])
+
+  return (
+    <ul role="list" className="divide-y divide-gray-200">
+      <button
+        onClick={async () =>{ 
+          const data = await getAllIssues();
+          console.log(data)
+        }}
+      >
+        test
+      </button>
+      {issues?.map((issue) => (
+        <li key={issue.id} className="py-4 text-xl">
+          {`${issue.id}: ${issue.s_currentIssue}`}<Stats issue={issue} /><div className="h-4"></div><Vote id={issue.id}/>
+        </li>
+      ))}
+    </ul>
+  )
+}
