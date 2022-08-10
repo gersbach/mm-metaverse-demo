@@ -1,4 +1,4 @@
-import React, {createContext, useCallback, useEffect, useState} from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import List from '../Components/List'
 import Vote from '../Components/Vote'
@@ -6,10 +6,11 @@ import Previous from '../Components/Previous'
 import PageHeader from '../Components/PageHeader'
 import Question from '../Components/Question'
 import { ethers } from 'ethers'
-import {abi, contractAddress} from '../constants'
+import { abi, contractAddress } from '../constants'
+import Head from 'next/head'
 
 
-function test() {
+function index() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [email, setEmail] = useState('')
 
@@ -20,34 +21,38 @@ function test() {
     // }, [])
 
     let provider = new ethers.providers.JsonRpcProvider('https://eth-rinkeby.alchemyapi.io/v2/B0zgar1SPtIGUyv1_0F7iQm_wB_ZIe7e')
-    let wallet = new ethers.Wallet('6ee3bfc6a1c522a20fb7340cfafeb818155768a34f865ea7358c13af6b08df77', provider  )
+    let wallet = new ethers.Wallet('6ee3bfc6a1c522a20fb7340cfafeb818155768a34f865ea7358c13af6b08df77', provider)
 
     const contract = new ethers.Contract(contractAddress, abi, wallet);
 
     const userContext = createContext()
 
     return (
-    <userContext.Provider value={{
-        loggedIn, 
-        setLoggedIn, 
-        email, 
-        setEmail,
-        contract
+        <userContext.Provider value={{
+            loggedIn,
+            setLoggedIn,
+            email,
+            setEmail,
+            contract
         }}>
-        <main>
-            <PageHeader userContext={userContext} />
-                <Header />
+            <Head>
+                <title>Mass Metaverse</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className='flex justify-center items-center'></div>
-                <div className='center text-'></div>
-                <div className="max-w-3xl mx-auto">
-                <Question userContext={userContext} />
-                <List userContext={userContext} />
+                    <div className='flex justify-center items-center'></div>
+                    <div className='center text-'></div>
+                    <div className="max-w-3xl mx-auto">
+                        <PageHeader userContext={userContext} />
+                        <Header />
+                        <Question userContext={userContext} />
+                        <List userContext={userContext} />
+                    </div>
                 </div>
-            </div>
-        </main>
-    </userContext.Provider>
+            </main>
+        </userContext.Provider>
     )
 }
 
-export default test 
+export default index
