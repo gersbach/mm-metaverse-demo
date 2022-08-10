@@ -11,9 +11,9 @@ const stats = [
       <div>
         <h3 className="text-lg leading-6 font-medium text-gray-900"></h3>
         <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-          <StatDiv name={"Number of Votes"} stat={issue.s_votesAgainst.length + issue.s_votesFor.length} />
-          <StatDiv name={"Yes"} stat={issue.s_votesFor.length} />
-          <StatDiv name={"No"} stat={issue.s_votesAgainst.length} />
+          <StatDiv name={"Number of Votes"} stat={issue.votesAgainst.length + issue.votesFor.length} />
+          <StatDiv name={"Yes"} stat={issue.votesFor.length} />
+          <StatDiv name={"No"} stat={issue.votesAgainst.length} />
         </dl>
       </div>
     )

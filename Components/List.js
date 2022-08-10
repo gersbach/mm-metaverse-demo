@@ -16,7 +16,7 @@ const items = [
 
 export default function List({userContext}) {
   const [issues, setIssues] = useState([]);
-  const {loggedIn, setLoggedIn, email} = useContext(userContext);
+  const {loggedIn, setLoggedIn, email, contract} = useContext(userContext);
 
   const { enableWeb3, isWeb3Enabled, account } = useMoralis();
   const { runContractFunction: getAllIssues } = useWeb3Contract({
@@ -31,19 +31,19 @@ export default function List({userContext}) {
 
   useEffect(() => async () => {
     setInterval(async ()=>{ 
-      const data = await getAllIssues();
+      const data = await contract.getAllIssues();
       setIssues(data);
     }, 2000)
-  })
+  }, [])
 
   return (
     <ul role="list" className="divide-y divide-gray-200">
       {issues?.map((issue) => (
         <li key={issue.id} className="py-4 text-xl">
-          {`${issue.id}: ${issue.s_currentIssue}`}
+          {`${issue.id}: ${issue.name}`}
           <Stats issue={issue}  />
           <div className="h-4"></div>
-          <Vote id={issue.id} issue={issue}/>
+          <Vote id={issue.id} issue={issue} userContext={userContext}/>
         </li>
       ))}
     </ul>

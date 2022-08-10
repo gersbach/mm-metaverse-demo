@@ -7,9 +7,9 @@ import { contractAddress, abi } from '../constants'
   export default function PageHeader({userContext}) {
 
     const { enableWeb3, isWeb3Enabled, account } = useMoralis();
-    const {loggedIn, setLoggedIn} = useContext(userContext);
+    const {loggedIn, setLoggedIn, email, setEmail, contract} = useContext(userContext);
 
-    const [email, setEmail] = useState('');
+    const [tempEmail, setTempEmail] = useState('');
   
 
     const { runContractFunction: createUser } = useWeb3Contract({
@@ -18,16 +18,19 @@ import { contractAddress, abi } from '../constants'
       contractAddress: contractAddress, 
       functionName: "addUser",
       params: {
-        _email: 'jamesgersbach101@gmail.com',
+        _email: tempEmail,
       },
     })
 
+
+
     const login = async () => {
-      localStorage.setItem('email', email)
-      const data = await createUser()
-      console.log(data)
+      setEmail(tempEmail)
+      localStorage.setItem('email', tempEmail)
+      const data = isWeb3Enabled? await createUser() : await contract.addUser(tempEmail)
       setLoggedIn(true)
     }
+  
     return (
       <header className="bg-transparent">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
@@ -44,15 +47,28 @@ import { contractAddress, abi } from '../constants'
             </div>
             <div className="ml-10 space-x-4">
               <input
-              value={email}
+              value={tempEmail}
               onChange={
                 (event)=>{
-                  setEmail(event.target.value)
+                  setTempEmail(event.target.value)
                 }
               }
               >
               
               </input>
+              <button
+                href="#"
+                className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
+                onClick={
+                  async (event) => {
+                    event.preventDefault()
+                    await login()
+                    //setLoggedIn(true)
+                  }
+                 }
+              >
+                Register
+              </button>
               <button
                 href="#"
                 className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
@@ -65,12 +81,6 @@ import { contractAddress, abi } from '../constants'
               >
                 Login with Meta Mask
               </button>
-              <a
-                href="#"
-                className="inline-block bg-white py-2 px-4 border border-transparent rounded-md text-base font-medium text-indigo-600 hover:bg-indigo-50"
-              >
-                Login with Email
-              </a>
             </div>
           </div>
         </nav>

@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Yes from './buttons/Yes'
 import No from './buttons/No'
 
-function Vote({id, issue}) {
+function Vote({id, issue, userContext}) {
     const [ableToVote, setAbleToVote] = useState(false)
+    const [transaxHash, setTransaxHash] = useState()
+    const [processTransax, setProcessTransax] = useState(false)
+
+    useEffect(()=>{
+        setAbleToVote(issue.votersRemaining.includes((localStorage.getItem('email')))
+    )})
 
     return (
         <>
@@ -11,9 +17,24 @@ function Vote({id, issue}) {
                 <div className='flex justify-center items-center'></div>
                 <div className='center text-'></div>
                 <div className="max-w-3xl mx-auto">
-                    <Yes id={id} disabled={!ableToVote}/>
+                    <Yes 
+                        id={id} 
+                        disabled={!ableToVote || processTransax} 
+                        setTransaxHash={setTransaxHash} 
+                        userContext={userContext}
+                        setProcessTransax={setProcessTransax}
+                    />
                         &nbsp;&nbsp;
-                    <No id={id} disabled={!ableToVote}/></div>
+                    <No 
+                        id={id} 
+                        disabled={!ableToVote} 
+                        setTransaxHash={setTransaxHash} 
+                        userContext={userContext}
+                        setProcessTransax={setProcessTransax}
+                        />
+                    <p>{transaxHash && "Transaction hash: "}</p>
+                    <a href={`https://rinkeby.etherscan.io/tx/${transaxHash} target="_blank"`}> {transaxHash} </a>
+                </div>
             </div>
         </>
     )

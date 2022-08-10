@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { contractAddress, abi } from '../../constants'
 import { useMoralis, useWeb3Contract } from 'react-moralis';
+import { userContext } from '../../pages/test'
 
 
 
-function Yes({id, disabled}) {
+function Yes({id, disabled, userContext, setTransaxHash, setProcessTransax}) {
+    const { isWeb3Enabled } = useMoralis();
+    const { contract } = useContext(userContext);
 
 
     const { runContractFunction: vote } = useWeb3Contract({
@@ -27,7 +30,9 @@ function Yes({id, disabled}) {
             disabled={disabled}
             onClick={
                 async () => {
-                    await vote()
+                    setProcessTransax(true)
+                    const transax = isWeb3Enabled? await vote() : await contract.vote(localStorage.getItem('email'), id, 0)
+                    setTransaxHash(transax.hash)
                 }
             }
         >

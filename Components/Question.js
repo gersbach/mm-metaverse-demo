@@ -26,8 +26,6 @@ import {
   ThumbUpIcon,
   XIcon,
 } from '@heroicons/react/solid'
-import { Listbox, Transition } from '@headlessui/react'
-
 const moods = [
   { name: 'Excited', value: 'excited', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
   { name: 'Loved', value: 'loved', icon: HeartIcon, iconColor: 'text-white', bgColor: 'bg-pink-400' },
@@ -41,9 +39,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Question() {
+export default function Question({userContext}) {
   const [selected, setSelected] = useState(moods[5])
+  const [transaxHash, setTransaxHash] = useState('')
   const [issueName, setIssueName] = useState('')
+  const { contract } = useContext(userContext)
+  const { isWeb3Enabled } = useMoralis()
 
   const { runContractFunction: addContractIssue } = useWeb3Contract({
     chain: 4,
@@ -73,7 +74,6 @@ export default function Question() {
               defaultValue={''}
               onChange={(event)=>setIssueName(event.target.value)}
             />
-
             {/* Spacer element to match the height of the toolbar */}
             <div className="py-2" aria-hidden="true">
               {/* Matches height of button in toolbar (1px border + 36px content height) */}
@@ -91,8 +91,8 @@ export default function Question() {
                 onClick={
                   async (event)=>{
                     event.preventDefault()
-                    const transax = await addContractIssue()
-                    console.log(transax)
+                    const transax = isWeb3Enabled? await addContractIssue() : await contract.addIssue(issueName)
+                    setTransaxHash(transax.hash)
                     setIssueName('')
                   }
                 }
@@ -102,6 +102,8 @@ export default function Question() {
             </div>
           </div>
         </form>
+        <p>{transaxHash && "Transaction hash: "}</p>
+        <a href={`https://rinkeby.etherscan.io/tx/${transaxHash} target="_blank"`}> {transaxHash} </a>
       </div>
     </div>
   )

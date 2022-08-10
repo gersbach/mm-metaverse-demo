@@ -120,7 +120,7 @@ export const abi = [
     "type": "tuple[]"
     }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
     },
     {
@@ -160,5 +160,5 @@ export const abi = [
     "type": "function"
     }
     ]
-
-export const contractAddress = '0x3d13022a83933bd281e5c1422daf0d6517251d79';   
+    
+    export const contractAddress = '0xae6c1034ec569752f3628487186e25eb3acdb0d8'; 

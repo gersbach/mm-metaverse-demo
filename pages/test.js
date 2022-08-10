@@ -5,6 +5,8 @@ import Vote from '../Components/Vote'
 import Previous from '../Components/Previous'
 import PageHeader from '../Components/PageHeader'
 import Question from '../Components/Question'
+import { ethers } from 'ethers'
+import {abi, contractAddress} from '../constants'
 
 
 function test() {
@@ -17,6 +19,11 @@ function test() {
     //     }
     // }, [])
 
+    let provider = new ethers.providers.JsonRpcProvider('https://eth-rinkeby.alchemyapi.io/v2/B0zgar1SPtIGUyv1_0F7iQm_wB_ZIe7e')
+    let wallet = new ethers.Wallet('6ee3bfc6a1c522a20fb7340cfafeb818155768a34f865ea7358c13af6b08df77', provider  )
+
+    const contract = new ethers.Contract(contractAddress, abi, wallet);
+
     const userContext = createContext()
 
     return (
@@ -24,7 +31,8 @@ function test() {
         loggedIn, 
         setLoggedIn, 
         email, 
-        setEmail
+        setEmail,
+        contract
         }}>
         <main>
             <PageHeader userContext={userContext} />
@@ -33,7 +41,7 @@ function test() {
                 <div className='flex justify-center items-center'></div>
                 <div className='center text-'></div>
                 <div className="max-w-3xl mx-auto">
-                <Question />
+                <Question userContext={userContext} />
                 <List userContext={userContext} />
                 </div>
             </div>
@@ -42,4 +50,4 @@ function test() {
     )
 }
 
-export default test
+export default test 
