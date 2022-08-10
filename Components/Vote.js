@@ -13,7 +13,7 @@ function Vote({id, issue, userContext}) {
 
     return (
         <>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {!(!ableToVote || processTransax) && <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className='flex justify-center items-center'></div>
                 <div className='center text-'></div>
                 <div className="max-w-3xl mx-auto">
@@ -32,10 +32,10 @@ function Vote({id, issue, userContext}) {
                         userContext={userContext}
                         setProcessTransax={setProcessTransax}
                         />
-                    <p>{transaxHash && "Transaction hash: "}</p>
-                    <a href={`https://rinkeby.etherscan.io/tx/${transaxHash}`} rel="noreferrer noopener" target="_blank"> {transaxHash} </a>
                 </div>
-            </div>
+            </div>}
+            <p>{transaxHash && "Transaction hash: "}</p>
+            <a href={`https://rinkeby.etherscan.io/tx/${transaxHash}`} rel="noreferrer noopener" target="_blank"> {transaxHash} </a>
         </>
     )
 }
