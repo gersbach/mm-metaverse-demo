@@ -10,7 +10,7 @@ import { abi, contractAddress } from '../constants'
 import Head from 'next/head'
 
 
-function index() {
+function Index() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [email, setEmail] = useState('')
 
@@ -55,4 +55,4 @@ function index() {
     )
 }
 
-export default index
+export default Index
