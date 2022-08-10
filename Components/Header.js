@@ -9,7 +9,7 @@ function Header() {
                         Mass Metaverse
                     </p>
                     <p className="max-w-xl mt-5 mx-auto text-xl text-gray-500">
-                        A way for stakeholders to create and vote on polls.
+                        A transparent way for stakeholders give feedback.
                     </p>
                 </div>
             </div>
