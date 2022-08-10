@@ -22,8 +22,6 @@ export default function PageHeader({ userContext }) {
     },
   })
 
-
-
   const login = async () => {
     setEmail(tempEmail)
     localStorage.setItem('email', tempEmail)
@@ -42,14 +40,14 @@ export default function PageHeader({ userContext }) {
                 setTempEmail(event.target.value)
               }
             }
-            className='border-solid border-2 border-blue-700 rounded m-1 align-middle text-center'
+            className={`border-solid border-2 border-blue-700 rounded m-1 align-middle text-center ${(loggedIn) ? 'hidden' : ''}`}
             placeholder='Registration Email'
           >
 
           </input>
           <button
             href="#"
-            className="inline-block bg-blue-700 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
+            className={`inline-block bg-blue-700 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75 ${(loggedIn) ? 'hidden' : ''}`}
             onClick={
               async (event) => {
                 event.preventDefault()
