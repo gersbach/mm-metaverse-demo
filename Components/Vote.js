@@ -33,7 +33,7 @@ function Vote({id, issue, userContext}) {
                         setProcessTransax={setProcessTransax}
                         />
                     <p>{transaxHash && "Transaction hash: "}</p>
-                    <a href={`https://rinkeby.etherscan.io/tx/${transaxHash} target="_blank"`}> {transaxHash} </a>
+                    <a href={`https://rinkeby.etherscan.io/tx/${transaxHash}`} rel="noreferrer noopener" target="_blank"> {transaxHash} </a>
                 </div>
             </div>
         </>
