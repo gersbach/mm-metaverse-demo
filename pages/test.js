@@ -9,7 +9,6 @@ import Question from '../Components/Question'
 
 function test() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [userId, setUserId] = useState(false);
     const [email, setEmail] = useState('')
 
     // useEffect(() => {
@@ -24,8 +23,6 @@ function test() {
     <userContext.Provider value={{
         loggedIn, 
         setLoggedIn, 
-        userId, 
-        setUserId,  
         email, 
         setEmail
         }}>

@@ -16,30 +16,18 @@ import { contractAddress, abi } from '../constants'
       chain: 4,
       abi: abi,
       contractAddress: contractAddress, 
-      functionName: "addUserByemail",
+      functionName: "addUser",
       params: {
-        _email: email,
-      },
-    })
-
-    const { runContractFunction: getUserId } = useWeb3Contract({
-      chain: 4,
-      abi: abi,
-      contractAddress: contractAddress,
-      functionName: "getVoterId",
-      params: {
-        _email: email,
+        _email: 'jamesgersbach101@gmail.com',
       },
     })
 
     const login = async () => {
-      localStorage.setItem('userId', email)
-      await createUser()
-      const id = await getUserId()
-      localStorage.setItem('userId', id)
+      localStorage.setItem('email', email)
+      const data = await createUser()
+      console.log(data)
       setLoggedIn(true)
     }
-
     return (
       <header className="bg-transparent">
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
@@ -55,14 +43,23 @@ import { contractAddress, abi } from '../constants'
               </a>
             </div>
             <div className="ml-10 space-x-4">
+              <input
+              value={email}
+              onChange={
+                (event)=>{
+                  setEmail(event.target.value)
+                }
+              }
+              >
+              
+              </input>
               <button
                 href="#"
                 className="inline-block bg-indigo-500 py-2 px-4 border border-transparent rounded-md text-base font-medium text-white hover:bg-opacity-75"
                 onClick={
                   async () => {
                     await enableWeb3()
-                    setLoggedIn(true)
-                    localStorage.setItem('web3-initiated', 'true')
+                    //setLoggedIn(true)
                   }
                  }
               >

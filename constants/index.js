@@ -3,23 +3,12 @@ export const abi = [
     "inputs": [
     {
     "internalType": "string",
-    "name": "_issueName",
+    "name": "_name",
     "type": "string"
     }
     ],
     "name": "addIssue",
-    "outputs": [
-    {
-    "internalType": "uint256",
-    "name": "",
-    "type": "uint256"
-    },
-    {
-    "internalType": "string",
-    "name": "",
-    "type": "string"
-    }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
     },
@@ -27,12 +16,7 @@ export const abi = [
     "inputs": [
     {
     "internalType": "string",
-    "name": "_firstName",
-    "type": "string"
-    },
-    {
-    "internalType": "string",
-    "name": "_lastName",
+    "name": "_email",
     "type": "string"
     }
     ],
@@ -44,40 +28,46 @@ export const abi = [
     {
     "inputs": [
     {
-    "internalType": "string",
-    "name": "_firstName",
-    "type": "string"
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+    }
+    ],
+    "name": "allIssuesList",
+    "outputs": [
+    {
+    "internalType": "uint256",
+    "name": "id",
+    "type": "uint256"
+    },
+    {
+    "internalType": "bool",
+    "name": "open",
+    "type": "bool"
     },
     {
     "internalType": "string",
-    "name": "_lastName",
-    "type": "string"
-    },
-    {
-    "internalType": "string",
-    "name": "_email",
+    "name": "name",
     "type": "string"
     }
     ],
-    "name": "addUserByEmail",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
     },
     {
     "inputs": [
     {
     "internalType": "uint256",
-    "name": "_id",
+    "name": "",
     "type": "uint256"
     }
     ],
-    "name": "currentIssuePassing",
+    "name": "allUsers",
     "outputs": [
     {
-    "internalType": "bool",
+    "internalType": "string",
     "name": "",
-    "type": "bool"
+    "type": "string"
     }
     ],
     "stateMutability": "view",
@@ -85,7 +75,7 @@ export const abi = [
     },
     {
     "inputs": [],
-    "name": "getCurrentIssue",
+    "name": "getAllIssues",
     "outputs": [
     {
     "components": [
@@ -101,176 +91,46 @@ export const abi = [
     },
     {
     "internalType": "string",
-    "name": "s_currentIssue",
+    "name": "name",
     "type": "string"
     },
     {
-    "internalType": "uint256[]",
-    "name": "s_allVotersOfIssue",
-    "type": "uint256[]"
+    "internalType": "string[]",
+    "name": "votesAgainst",
+    "type": "string[]"
     },
     {
-    "internalType": "uint256[]",
-    "name": "s_allVotersOfIssueEligible",
-    "type": "uint256[]"
+    "internalType": "string[]",
+    "name": "votesFor",
+    "type": "string[]"
     },
     {
-    "internalType": "uint256[]",
-    "name": "s_votesAgainst",
-    "type": "uint256[]"
+    "internalType": "string[]",
+    "name": "votersRemaining",
+    "type": "string[]"
     },
     {
-    "internalType": "uint256[]",
-    "name": "s_votesFor",
-    "type": "uint256[]"
+    "internalType": "string[]",
+    "name": "votersEligible",
+    "type": "string[]"
     }
     ],
-    "internalType": "struct MMVote.Issue[]",
+    "internalType": "struct Vote.Issue[]",
     "name": "",
     "type": "tuple[]"
     }
     ],
-    "stateMutability": "view",
-    "type": "function"
-    },
-    {
-    "inputs": [
-    {
-    "internalType": "uint256",
-    "name": "_id",
-    "type": "uint256"
-    }
-    ],
-    "name": "getEntireIssue",
-    "outputs": [
-    {
-    "components": [
-    {
-    "internalType": "uint256",
-    "name": "id",
-    "type": "uint256"
-    },
-    {
-    "internalType": "bool",
-    "name": "open",
-    "type": "bool"
-    },
-    {
-    "internalType": "string",
-    "name": "s_currentIssue",
-    "type": "string"
-    },
-    {
-    "internalType": "uint256[]",
-    "name": "s_allVotersOfIssue",
-    "type": "uint256[]"
-    },
-    {
-    "internalType": "uint256[]",
-    "name": "s_allVotersOfIssueEligible",
-    "type": "uint256[]"
-    },
-    {
-    "internalType": "uint256[]",
-    "name": "s_votesAgainst",
-    "type": "uint256[]"
-    },
-    {
-    "internalType": "uint256[]",
-    "name": "s_votesFor",
-    "type": "uint256[]"
-    }
-    ],
-    "internalType": "struct MMVote.Issue",
-    "name": "",
-    "type": "tuple"
-    }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-    },
-    {
-    "inputs": [
-    {
-    "internalType": "uint256",
-    "name": "_id",
-    "type": "uint256"
-    }
-    ],
-    "name": "getIssueNameById",
-    "outputs": [
-    {
-    "internalType": "string",
-    "name": "",
-    "type": "string"
-    }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-    },
-    {
-    "inputs": [
-    {
-    "internalType": "uint256",
-    "name": "_id",
-    "type": "uint256"
-    }
-    ],
-    "name": "getIssueStatusById",
-    "outputs": [
-    {
-    "internalType": "bool",
-    "name": "",
-    "type": "bool"
-    }
-    ],
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
     },
     {
     "inputs": [],
-    "name": "getNumberOfVoters",
+    "name": "issueId",
     "outputs": [
     {
     "internalType": "uint256",
     "name": "",
     "type": "uint256"
-    }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-    },
-    {
-    "inputs": [
-    {
-    "internalType": "address",
-    "name": "_userAddress",
-    "type": "address"
-    }
-    ],
-    "name": "getUserByAddress",
-    "outputs": [
-    {
-    "components": [
-    {
-    "internalType": "uint256",
-    "name": "id",
-    "type": "uint256"
-    },
-    {
-    "internalType": "string",
-    "name": "firstName",
-    "type": "string"
-    },
-    {
-    "internalType": "string",
-    "name": "lastName",
-    "type": "string"
-    }
-    ],
-    "internalType": "struct MMVote.EligibleVoter",
-    "name": "",
-    "type": "tuple"
     }
     ],
     "stateMutability": "view",
@@ -282,141 +142,23 @@ export const abi = [
     "internalType": "string",
     "name": "_email",
     "type": "string"
-    }
-    ],
-    "name": "getUserByEmail",
-    "outputs": [
-    {
-    "components": [
-    {
-    "internalType": "uint256",
-    "name": "id",
-    "type": "uint256"
     },
-    {
-    "internalType": "string",
-    "name": "firstName",
-    "type": "string"
-    },
-    {
-    "internalType": "string",
-    "name": "lastName",
-    "type": "string"
-    }
-    ],
-    "internalType": "struct MMVote.EligibleVoter",
-    "name": "",
-    "type": "tuple"
-    }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-    },
-    {
-    "inputs": [
-    {
-    "internalType": "string",
-    "name": "_email",
-    "type": "string"
-    }
-    ],
-    "name": "getVoterId",
-    "outputs": [
-    {
-    "internalType": "uint256",
-    "name": "",
-    "type": "uint256"
-    }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-    },
-    {
-    "inputs": [
     {
     "internalType": "uint256",
     "name": "_issueId",
     "type": "uint256"
-    }
-    ],
-    "name": "getVotesAgainst",
-    "outputs": [
-    {
-    "internalType": "uint256",
-    "name": "",
-    "type": "uint256"
-    }
-    ],
-    "stateMutability": "view",
-    "type": "function"
     },
     {
-    "inputs": [
-    {
-    "internalType": "uint256",
-    "name": "_issueId",
-    "type": "uint256"
-    }
-    ],
-    "name": "getVotesFor",
-    "outputs": [
-    {
-    "internalType": "uint256",
-    "name": "",
-    "type": "uint256"
-    }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-    },
-    {
-    "inputs": [
-    {
-    "internalType": "uint256",
-    "name": "_issueId",
-    "type": "uint256"
-    }
-    ],
-    "name": "getVotesRemaining",
-    "outputs": [
-    {
-    "internalType": "uint256",
-    "name": "",
-    "type": "uint256"
-    }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-    },
-    {
-    "inputs": [
-    {
-    "internalType": "enum MMVote.VoteType",
+    "internalType": "enum Vote.VoteType",
     "name": "_voteType",
     "type": "uint8"
-    },
-    {
-    "internalType": "uint256",
-    "name": "_issueId",
-    "type": "uint256"
-    },
-    {
-    "internalType": "string",
-    "name": "_email",
-    "type": "string"
     }
     ],
     "name": "vote",
-    "outputs": [
-    {
-    "internalType": "uint256",
-    "name": "",
-    "type": "uint256"
-    }
-    ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
     }
     ]
 
-export const contractAddress = '0x150bDfB1b4601c65Dff905cbC4AABE62be9f91a1';   
+export const contractAddress = '0x3d13022a83933bd281e5c1422daf0d6517251d79';   

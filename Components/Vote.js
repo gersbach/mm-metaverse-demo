@@ -2,14 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Yes from './buttons/Yes'
 import No from './buttons/No'
 
-function Vote({id, issue, userId}) {
+function Vote({id, issue}) {
     const [ableToVote, setAbleToVote] = useState(false)
-
-    useEffect(()=>{
-        setAbleToVote(issue[3].map((number)=>{
-            return Number(number._hex)
-        }).includes(Number(localStorage.getItem('userId')))
-    )})
 
     return (
         <>

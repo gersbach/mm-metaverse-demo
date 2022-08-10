@@ -5,18 +5,15 @@ import { useMoralis, useWeb3Contract } from 'react-moralis';
 
 function No({id, disabled}) {
 
-    console.log(id)
-
     const { runContractFunction: vote } = useWeb3Contract({
         chain: 4,
         abi: abi,
         contractAddress: contractAddress, // specify the networkId
         functionName: "vote",
         params: {
+         _email: localStorage.getItem('email'),
           _voteType: 1,
           _issueId: id,
-          _email: localStorage.getItem('email')
-    
         },
       })
 
@@ -28,6 +25,7 @@ function No({id, disabled}) {
             onClick={
                 async () => {
                     const data = await vote()
+                    console.log(data)
                 }
             }
         >

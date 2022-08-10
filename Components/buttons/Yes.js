@@ -13,9 +13,9 @@ function Yes({id, disabled}) {
         contractAddress: contractAddress, // specify the networkId
         functionName: "vote",
         params: {
+         _email: localStorage.getItem('email'),
           _voteType: 0,
           _issueId: id,
-          _email: localStorage.getItem('email')
     
         },
       })

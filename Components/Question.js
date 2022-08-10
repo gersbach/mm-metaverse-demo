@@ -51,7 +51,7 @@ export default function Question() {
     contractAddress: contractAddress,
     functionName: "addIssue",
     params: {
-      _issueName: issueName,
+      _name: issueName,
     },
   })
 
@@ -92,6 +92,7 @@ export default function Question() {
                   async (event)=>{
                     event.preventDefault()
                     const transax = await addContractIssue()
+                    console.log(transax)
                     setIssueName('')
                   }
                 }
